@@ -1,0 +1,48 @@
+export const experience = [
+  {
+    id: 1,
+    type: 'work',
+    role: 'Senior Software Developer',
+    company: 'BXI – Barter Exchange of India',
+    location: 'Mumbai',
+    period: 'Aug 2025 – Present',
+    accent: '#3b82f6',
+    points: [
+      'Primary full-stack engineer on live B2B platform — REST APIs, React.js, MongoDB, AWS, DigitalOcean',
+      'Architected multi-gateway payment flows with Juspay — order creation, webhooks, reconciliation, recovery',
+      'Built RBAC with JWT, refresh token rotation, session management across buyer, seller, admin roles',
+      'Admin dashboard — real-time orders, dynamic reports, business analytics',
+      'Multi-channel notifications — NodeMailer + in-app tied to order lifecycle events',
+      'Full AWS and DigitalOcean deployment management — provisioning, uptime monitoring, incident resolution',
+    ],
+  },
+  {
+    id: 2,
+    type: 'work',
+    role: 'Junior Executive — Full Stack Developer',
+    company: 'Odyssey Technologies',
+    location: 'Mumbai',
+    period: 'Jul 2023 – Jul 2025',
+    accent: '#8b5cf6',
+    points: [
+      'Built 10+ RESTful APIs in Node.js/Express.js — accelerated feature delivery by 35%',
+      'RBAC middleware, JWT session validation, route-level authorization across protected endpoints',
+      'Optimised React.js components — reduced page load time by 25%',
+      'Resolved deployment pipeline issues — improved uptime and release speed by 30%',
+    ],
+  },
+  {
+    id: 3,
+    type: 'education',
+    role: 'B.E. Computer Engineering',
+    company: 'PVPPCOE, Mumbai University',
+    location: 'Mumbai',
+    period: '2019 – 2023',
+    accent: '#22c55e',
+    points: [
+      'Graduated with distinction',
+      'DSA, DBMS, OS, Computer Networks, Software Engineering',
+    ],
+    extra: 'CGPA: 9.09',
+  },
+];
