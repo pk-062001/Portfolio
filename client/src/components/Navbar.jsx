@@ -60,20 +60,20 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Logo - Full Name */}
           <a
             href="#home"
             onClick={(e) => {
               e.preventDefault();
               handleNavClick('#home');
             }}
-            className="glass-pill px-4 py-1.5 text-sm font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent shadow-glow"
+            className="text-lg font-bold text-text-primary hover:text-primary transition-colors duration-300"
           >
-            PK
+            Prathamesh Kokkula
           </a>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -82,30 +82,19 @@ export default function Navbar() {
                   e.preventDefault();
                   handleNavClick(link.href);
                 }}
-                className="relative px-3 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+                className="relative text-sm font-medium text-text-secondary hover:text-text-primary transition-colors duration-300 py-2"
               >
                 {link.label}
                 {activeSection === link.href.slice(1) && (
                   <motion.div
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full bg-gradient-to-r from-primary to-secondary"
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary"
                     layoutId="activeNav"
-                    style={{ width: '60%' }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
               </a>
             ))}
           </div>
-
-          {/* Resume Button */}
-          <a
-            href="RESUME_PDF_LINK"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex glass-button text-sm font-medium px-4 py-2"
-          >
-            Download Resume
-          </a>
 
           {/* Mobile Hamburger */}
           <button
@@ -145,17 +134,6 @@ export default function Navbar() {
                   {link.label}
                 </motion.a>
               ))}
-              <motion.a
-                href="RESUME_PDF_LINK"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block px-3 py-2 text-base font-medium text-primary"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: navLinks.length * 0.05 }}
-              >
-                Download Resume
-              </motion.a>
             </div>
           </motion.div>
         )}

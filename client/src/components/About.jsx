@@ -4,8 +4,8 @@ import { fadeInUp, fadeInLeft, fadeInRight, staggerChildren } from '../utils/ani
 import { FiCode, FiServer, FiCloud, FiShield } from 'react-icons/fi';
 
 const stats = [
-  { label: 'Years', value: 3, suffix: '+' },
-  { label: 'APIs', value: 10, suffix: '+' },
+  { label: 'Years of Experience', value: 3, suffix: '+' },
+  { label: 'APIs Built', value: 10, suffix: '+' },
   { label: 'Companies', value: 2, suffix: '' },
   { label: 'CGPA', value: 9.09, suffix: '', isDecimal: true },
 ];
@@ -17,28 +17,33 @@ const whatIDo = [
   { icon: FiShield, label: 'Auth & Security Systems', color: '#f59e0b' },
 ];
 
-// TypeScript-free StatCard — props are plain JS, no interface needed
 function StatCard({ label, value, suffix, isDecimal }) {
   const { ref, isVisible } = useScrollAnimation();
   const count = useCountUp(isDecimal ? 909 : value, 2000, isVisible);
   const display = isDecimal ? (count / 100).toFixed(2) : count;
 
   return (
-    <div ref={ref} className="glass-card p-4 text-center hover:scale-[1.03] hover:border-primary/30 hover:shadow-glow transition-all duration-300">
-      <div className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-        {display}{suffix}
+    <motion.div
+      ref={ref}
+      className="text-center"
+      variants={fadeInUp}
+    >
+      <div className="text-3xl sm:text-4xl font-bold">
+        <span className="text-primary">{display}</span>
+        <span className="text-primary ml-1">{suffix}</span>
       </div>
-      <div className="text-sm text-text-secondary mt-1">{label}</div>
-    </div>
+      <div className="text-sm text-text-secondary mt-2">{label}</div>
+    </motion.div>
   );
 }
 
 export default function About() {
   return (
     <section id="about" className="relative py-20 sm:py-28 overflow-hidden">
+      {/* Background orbs - Blue and Teal mood */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[10%] right-[-5%] w-[400px] h-[400px] rounded-full bg-primary/8 blur-[100px] animate-float-slow" />
-        <div className="absolute bottom-[10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-secondary/8 blur-[100px] animate-float-slower" />
+        <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-primary/8 blur-[100px] animate-float-slow" />
+        <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] rounded-full bg-cyan-500/6 blur-[100px] animate-float-slower" />
       </div>
       <div className="absolute inset-0 grain-texture pointer-events-none" />
 
@@ -54,80 +59,88 @@ export default function About() {
           <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Me</span>
         </motion.h2>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          {/* Left: What I Do - Vertical Timeline Style */}
           <motion.div
-            className="flex flex-col items-center"
+            className="flex flex-col gap-0 relative"
             variants={fadeInLeft}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.1 }}
           >
-            <div className="relative group mb-8">
-              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-primary to-secondary opacity-30 blur-lg group-hover:opacity-75 group-hover:scale-105 transition duration-500" />
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-secondary p-[3px] animate-spin-slow" />
-              <div className="relative w-[280px] h-[280px] rounded-full bg-dark flex items-center justify-center overflow-hidden shadow-glow">
-                <span className="text-6xl font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
-                  PK
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-wrap justify-center gap-3">
-              {['React.js', 'Node.js', 'MongoDB'].map((chip) => (
-                <span key={chip} className="glass-pill px-3 py-1.5 text-sm font-medium text-text-secondary hover:text-text-primary hover:border-primary/20 transition-all duration-300">
-                  {chip}
-                </span>
-              ))}
-            </div>
+            {/* Orange vertical line */}
+            <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary to-transparent pointer-events-none" />
+
+            {whatIDo.map((item, index) => (
+              <motion.div
+                key={item.label}
+                className="relative flex gap-6 mb-8 last:mb-0"
+                variants={fadeInUp}
+              >
+                {/* Dot */}
+                <div className="flex flex-col items-center">
+                  <motion.div
+                    className="w-10 h-10 rounded-full flex items-center justify-center mt-1 shrink-0 relative z-10"
+                    style={{ backgroundColor: `${item.color}25`, border: `2px solid ${item.color}` }}
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <item.icon size={18} style={{ color: item.color }} />
+                  </motion.div>
+                </div>
+
+                {/* Content */}
+                <div className="pt-2">
+                  <h3 className="text-lg font-semibold text-text-primary mb-1">
+                    {item.label}
+                  </h3>
+                  <p className="text-sm text-text-secondary">
+                    {index === 0 && 'APIs, databases, and scalable architectures'}
+                    {index === 1 && 'React, responsive UI, and smooth interactions'}
+                    {index === 2 && 'AWS, Docker, CI/CD pipelines'}
+                    {index === 3 && 'JWT, OAuth, and system protection'}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
 
+          {/* Right: About me Bio & Stats */}
           <motion.div
+            className="flex flex-col gap-8"
             variants={fadeInRight}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.1 }}
           >
-            <p className="text-text-secondary leading-relaxed mb-6">
-              I'm a Senior Full Stack Developer based in Mumbai, specializing in the MERN stack.
-              Over the past 3 years, I've worked as the primary engineer on live, revenue-generating
-              B2B platforms — owning everything from API architecture and payment integrations to cloud
-              infrastructure and production incident response.
-            </p>
-            <p className="text-text-secondary leading-relaxed mb-6">
-              I was promoted to Senior Developer at BXI for independently delivering business-critical
-              features — including a multi-gateway payment system (Juspay), RBAC with JWT, real-time
-              admin dashboards, and full AWS/DigitalOcean deployment pipelines.
-            </p>
-            <p className="text-text-secondary leading-relaxed mb-10">
-              I don't just write code — I build and maintain systems that real businesses depend on.
-            </p>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
-              {stats.map((stat) => (
-                <StatCard key={stat.label} {...stat} />
-              ))}
+            {/* Bio */}
+            <div>
+              <h3 className="text-2xl font-bold text-text-primary mb-4">About me</h3>
+              <p className="text-text-secondary leading-relaxed mb-4">
+                I'm a Senior Full Stack Developer based in Mumbai, specializing in the MERN stack.
+                Over the past 3 years, I've worked as the primary engineer on live, revenue-generating
+                B2B platforms — owning everything from API architecture and payment integrations to cloud
+                infrastructure and production incident response.
+              </p>
+              <p className="text-text-secondary leading-relaxed mb-4">
+                I was promoted to Senior Developer at BXI for independently delivering business-critical
+                features — including a multi-gateway payment system (Juspay), RBAC with JWT, real-time
+                admin dashboards, and full AWS/DigitalOcean deployment pipelines.
+              </p>
+              <p className="text-text-secondary leading-relaxed">
+                I don't just write code — I build and maintain systems that real businesses depend on.
+              </p>
             </div>
 
+            {/* Stats Grid */}
             <motion.div
-              className="grid grid-cols-2 gap-3"
+              className="grid grid-cols-2 sm:grid-cols-2 gap-8 pt-4"
               variants={staggerChildren}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.1 }}
             >
-              {whatIDo.map((item) => (
-                <motion.div
-                  key={item.label}
-                  className="glass-card p-4 flex items-center gap-3 hover:-translate-y-1 hover:border-primary/30 hover:shadow-glow transition-all duration-300"
-                  variants={fadeInUp}
-                >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: `${item.color}15`, color: item.color }}
-                  >
-                    <item.icon size={20} />
-                  </div>
-                  <span className="text-sm font-medium text-text-primary">{item.label}</span>
-                </motion.div>
+              {stats.map((stat) => (
+                <StatCard key={stat.label} {...stat} />
               ))}
             </motion.div>
           </motion.div>

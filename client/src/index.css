@@ -156,6 +156,70 @@ body {
   animation: marquee-right 50s linear infinite;
 }
 
+/* Typewriter Effect */
+@keyframes typewriter {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+.typewriter {
+  overflow: hidden;
+  border-right: 3px solid rgba(59, 130, 246, 0.8);
+  white-space: nowrap;
+  animation: typewriter 2.5s steps(40, end);
+  animation-fill-mode: forwards;
+}
+
+.typewriter.cursor::after {
+  content: '|';
+  animation: blink 0.75s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  0%, 49%, 100% { opacity: 1; }
+  50%, 99% { opacity: 0; }
+}
+
+/* Geometric Shapes */
+.floating-shape {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+
+.floating-shape.rotate-slow {
+  animation: spinSlow 20s linear infinite;
+}
+
+/* Glow Effects */
+.glow-blue {
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.2), inset 0 0 40px rgba(59, 130, 246, 0.1);
+}
+
+.glow-violet {
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.2), inset 0 0 40px rgba(139, 92, 246, 0.1);
+}
+
+/* Active Indicator Dot */
+.nav-indicator {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #3b82f6;
+  border-radius: 50%;
+  animation: fadePulse 2s ease-in-out infinite;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-right 50s linear infinite;
+}
+
 .animate-marquee-left:hover,
 .animate-marquee-right:hover {
   animation-play-state: paused;

@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
@@ -29,6 +29,13 @@ export default {
         'float-slower': 'floatSlower 12s ease-in-out infinite',
         'pulse-dot': 'pulseDot 2s ease-in-out infinite',
         shimmer: 'shimmer 2s linear infinite',
+        'spin-ring': 'spinRing 3s linear infinite',
+        'progress-fill': 'progressFill 3s ease-in-out forwards',
+        'fade-pulse': 'fadePulse 2s ease-in-out infinite',
+        'slide-up': 'slideUp 0.6s ease-out forwards',
+        'marquee-ltr': 'marquee-ltr 30s linear infinite',
+        'marquee-rtl': 'marquee-rtl 30s linear infinite',
+        'spin-slow': 'spinSlow 20s linear infinite',
       },
       keyframes: {
         floatSlow: {
@@ -46,6 +53,34 @@ export default {
         shimmer: {
           '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(100%)' },
+        },
+        spinRing: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        progressFill: {
+          '0%': { width: '0%' },
+          '100%': { width: '100%' },
+        },
+        fadePulse: {
+          '0%, 100%': { opacity: '0.5' },
+          '50%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        'marquee-ltr': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
+        'marquee-rtl': {
+          from: { transform: 'translateX(-50%)' },
+          to: { transform: 'translateX(0)' },
+        },
+        spinSlow: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
         },
       },
     },
