@@ -23,7 +23,7 @@ export default function Footer() {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.1 }}
         >
           <p className="text-sm text-text-secondary text-center">
             Designed &amp; Built by{' '}

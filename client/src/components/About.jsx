@@ -24,7 +24,7 @@ function StatCard({ label, value, suffix, isDecimal }) {
   const display = isDecimal ? (count / 100).toFixed(2) : count;
 
   return (
-    <div ref={ref} className="glass-card p-4 text-center">
+    <div ref={ref} className="glass-card p-4 text-center hover:scale-[1.03] hover:border-primary/30 hover:shadow-glow transition-all duration-300">
       <div className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
         {display}{suffix}
       </div>
@@ -48,7 +48,7 @@ export default function About() {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.1 }}
         >
           About{' '}
           <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Me</span>
@@ -60,21 +60,20 @@ export default function About() {
             variants={fadeInLeft}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.1 }}
           >
             <div className="relative group mb-8">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-secondary p-[3px]" style={{ animation: 'spin 8s linear infinite' }}>
-                <div className="w-full h-full rounded-full bg-dark" />
-              </div>
-              <div className="relative w-[280px] h-[280px] rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center overflow-hidden">
-                <span className="text-6xl font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-primary to-secondary opacity-30 blur-lg group-hover:opacity-75 group-hover:scale-105 transition duration-500" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-secondary p-[3px] animate-spin-slow" />
+              <div className="relative w-[280px] h-[280px] rounded-full bg-dark flex items-center justify-center overflow-hidden shadow-glow">
+                <span className="text-6xl font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
                   PK
                 </span>
               </div>
             </div>
             <div className="flex flex-wrap justify-center gap-3">
               {['React.js', 'Node.js', 'MongoDB'].map((chip) => (
-                <span key={chip} className="glass-pill px-3 py-1.5 text-sm font-medium text-text-secondary">
+                <span key={chip} className="glass-pill px-3 py-1.5 text-sm font-medium text-text-secondary hover:text-text-primary hover:border-primary/20 transition-all duration-300">
                   {chip}
                 </span>
               ))}
@@ -85,7 +84,7 @@ export default function About() {
             variants={fadeInRight}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.1 }}
           >
             <p className="text-text-secondary leading-relaxed mb-6">
               I'm a Senior Full Stack Developer based in Mumbai, specializing in the MERN stack.
@@ -113,12 +112,12 @@ export default function About() {
               variants={staggerChildren}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: false, amount: 0.1 }}
             >
               {whatIDo.map((item) => (
                 <motion.div
                   key={item.label}
-                  className="glass-card p-4 flex items-center gap-3 hover:-translate-y-1 transition-transform duration-300"
+                  className="glass-card p-4 flex items-center gap-3 hover:-translate-y-1 hover:border-primary/30 hover:shadow-glow transition-all duration-300"
                   variants={fadeInUp}
                 >
                   <div

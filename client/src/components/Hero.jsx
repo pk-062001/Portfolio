@@ -145,22 +145,6 @@ export default function Hero() {
           </button>
         </motion.div>
 
-        <motion.div
-          className="flex flex-wrap justify-center gap-3"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, type: 'spring', stiffness: 100, damping: 20 }}
-        >
-          {[
-            '3+ Years Experience',
-            '2 Companies',
-            '10+ Production APIs',
-          ].map((stat) => (
-            <div key={stat} className="glass-pill px-4 py-2 text-sm font-medium text-text-secondary">
-              {stat}
-            </div>
-          ))}
-        </motion.div>
       </div>
 
       <motion.div

@@ -17,7 +17,7 @@ export default function Experience() {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.1 }}
         >
           My{' '}
           <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Journey</span>
@@ -40,7 +40,7 @@ export default function Experience() {
                   variants={animVariant}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, amount: 0.2 }}
+                  viewport={{ once: false, amount: 0.1 }}
                 >
                   <div
                     className="absolute left-4 md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full z-10 mt-6"
@@ -50,11 +50,11 @@ export default function Experience() {
                   <div className={`w-full md:w-[calc(50%-2rem)] ${
                     isLeft ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'
                   } pl-10 md:pl-0`}>
-                    <div className="glass-card p-5 sm:p-6">
+                    <div className="glass-card p-5 sm:p-6 hover:scale-[1.02] hover:border-primary/20 hover:shadow-glow transition-all duration-300">
                       <div className="flex items-start gap-3 mb-3">
                         <div
-                          className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold shrink-0"
-                          style={{ backgroundColor: `${entry.accent}15`, color: entry.accent }}
+                           className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold shrink-0"
+                           style={{ backgroundColor: `${entry.accent}15`, color: entry.accent }}
                         >
                           {entry.company[0]}
                         </div>

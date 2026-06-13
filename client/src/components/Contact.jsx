@@ -93,7 +93,7 @@ export default function Contact() {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.1 }}
         >
           Let's Build Something{' '}
           <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Together</span>
@@ -103,7 +103,7 @@ export default function Contact() {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.1 }}
         >
           Open to full-time roles, freelance projects, and collaborations. Based in Mumbai — available remotely.
         </motion.p>
@@ -114,7 +114,7 @@ export default function Contact() {
             variants={fadeInLeft}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.1 }}
           >
             {contactInfo.map((item) => (
               <a
@@ -122,9 +122,9 @@ export default function Contact() {
                 href={item.href}
                 target={item.external ? '_blank' : undefined}
                 rel={item.external ? 'noopener noreferrer' : undefined}
-                className="glass-card p-4 flex items-center gap-4 group hover:-translate-y-0.5 transition-transform duration-300"
+                className="glass-card p-4 flex items-center gap-4 group hover:-translate-y-1 hover:border-primary/30 hover:shadow-glow transition-all duration-300"
               >
-                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
                   <item.icon size={18} />
                 </div>
                 <span className="text-sm text-text-secondary group-hover:text-text-primary transition-colors truncate">
@@ -151,7 +151,7 @@ export default function Contact() {
             variants={fadeInRight}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.1 }}
           >
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
               <div>

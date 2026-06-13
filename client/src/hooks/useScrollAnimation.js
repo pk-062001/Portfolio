@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
  * Once the element enters the viewport, isVisible becomes true (and stays true).
  */
 export function useScrollAnimation(options = {}) {
-  const { threshold = 0.2, rootMargin = '0px' } = options;
+  const { threshold = 0.2, rootMargin = '0px', triggerOnce = false } = options;
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -15,8 +15,8 @@ export function useScrollAnimation(options = {}) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
+        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting && triggerOnce) {
           observer.unobserve(element);
         }
       },
@@ -25,7 +25,7 @@ export function useScrollAnimation(options = {}) {
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [threshold, rootMargin]);
+  }, [threshold, rootMargin, triggerOnce]);
 
   return { ref, isVisible };
 }
@@ -38,7 +38,10 @@ export function useCountUp(end, duration = 2000, startCounting = false) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!startCounting) return;
+    if (!startCounting) {
+      setCount(0);
+      return;
+    }
 
     let startTime = null;
     let animationFrame;

@@ -26,7 +26,7 @@ export default function Projects() {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.1 }}
         >
           Things I've{' '}
           <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Built</span>
@@ -37,7 +37,7 @@ export default function Projects() {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.1 }}
         >
           {projectCategories.map((cat) => (
             <button
@@ -79,7 +79,7 @@ export default function Projects() {
                   }}
                 >
                   <div
-                    className={`glass-card overflow-hidden group relative ${
+                    className={`glass-card overflow-hidden group relative hover:border-primary/30 hover:shadow-glow transition-all duration-300 ${
                       project.featured ? 'shadow-glow border-primary/20' : ''
                     }`}
                   >
@@ -152,7 +152,7 @@ export default function Projects() {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.1 }}
         >
           <a
             href="https://github.com/pk-062001"
