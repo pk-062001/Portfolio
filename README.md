@@ -1,136 +1,94 @@
-# Production-Grade Developer Portfolio (MERN Stack)
+# Prathamesh Kokkula Portfolio
 
-A production-grade developer portfolio built on the **MERN (MongoDB, Express, React, Node.js)** stack using plain JavaScript. Features rich aesthetics, glassmorphism, responsive navigation, skills and projects filtering, smooth animations, and a secure server-side contact form submission flow.
+Production-ready React portfolio built with Vite, Tailwind CSS, Framer Motion, and EmailJS. The contact form sends email from the deployed Vercel frontend without a backend server.
 
----
+## Project Structure
 
-## 📁 Project Structure
-
-```
+```text
 project/
-├── client/                 # React frontend (Vite)
-│   ├── src/
-│   │   ├── components/     # React component files (.jsx)
-│   │   ├── data/           # Configured portfolio details (experience, projects, skills)
-│   │   ├── hooks/          # Custom react hooks (useScrollAnimation)
-│   │   └── utils/          # Helper animations configuration
-│   ├── index.html          # Frontend main index
-│   └── package.json        # Frontend dependencies & configurations
-│
-├── server/                 # Express backend (Node.js)
-│   ├── config/             # Database connection settings
-│   ├── middleware/         # Centralized API error handling
-│   ├── models/             # Mongoose schemas (Contact)
-│   ├── routes/             # API endpoints (/api/contact)
-│   └── package.json        # Backend dependencies & configurations
-│
-├── package.json            # Root configuration to orchestrate client and server
-└── README.md               # Documentation
+  client/        React frontend
+  server/        Legacy Express backend, no longer required for contact form email
+  package.json   Root scripts
 ```
 
----
-
-## 🛠️ Prerequisites
-
-Make sure you have the following installed on your machine:
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- [MongoDB](https://www.mongodb.com/try/download/community) (Local server running on port `27017` or a MongoDB Atlas connection string)
-
----
-
-## 🚀 Getting Started
-
-### 1. Installation
-
-You can install all dependencies for both the frontend and backend at once from the root directory:
+## Local Setup
 
 ```bash
-# Install root orchestration tools (concurrently)
 npm install
-
-# Install client-side dependencies
-npm run install --prefix client
-
-# Install server-side dependencies
-npm run install --prefix server
+npm install --prefix client
+npm run dev --prefix client
 ```
 
-Alternatively, you can navigate into each folder individually to install dependencies:
-```bash
-# In client/
-cd client
-npm install
+The frontend runs at `http://localhost:5173`.
 
-# In server/
-cd ../server
-npm install
+## EmailJS Setup
+
+1. Create an account at [EmailJS](https://www.emailjs.com/).
+2. Open the EmailJS dashboard and go to **Email Services**.
+3. Click **Add New Service** and choose **Gmail**.
+4. Connect the Gmail account that should send the email.
+5. Copy the generated **Service ID**.
+6. Go to **Email Templates** and click **Create New Template**.
+7. Use this template content:
+
+```text
+Subject: {{subject}}
+
+New portfolio message for {{to_email}}
+
+From: {{from_name}}
+Email: {{from_email}}
+Submitted: {{submitted_at}}
+
+Message:
+{{message}}
 ```
 
----
+8. In the template settings, set **To Email** to `kprathamesh2001@gmail.com`.
+9. Set **Reply To** to `{{reply_to}}` so replying goes to the visitor.
+10. Save the template and copy the **Template ID**.
+11. Go to **Account** > **General** and copy your **Public Key**.
 
-## ⚙️ Environment Configuration
+## Environment Variables
 
-Create a `.env` file inside the `server/` directory to configure your environment variables. 
+Create `client/.env.local` for local development:
 
-You can copy the provided example:
-```bash
-cp server/.env.example server/.env
-```
-
-Set the values in `server/.env`:
 ```env
-PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/portfolio
-CLIENT_ORIGIN=http://localhost:5173
-
-# Optional: Nodemailer SMTP settings (to get email notifications for contact submissions)
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your_gmail@gmail.com
-SMTP_PASS=your_app_password
-CONTACT_TO_EMAIL=your_receiving_email@gmail.com
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
+VITE_CONTACT_TO_EMAIL=kprathamesh2001@gmail.com
 ```
 
----
+Only `VITE_` variables are exposed to the Vite frontend. Do not put Gmail passwords or private keys in the frontend.
 
-## 🖥️ Running the Application
+## Vercel Deployment
 
-There are two ways to start the application:
+1. Open your Vercel project dashboard.
+2. Go to **Settings** > **Environment Variables**.
+3. Add these variables for Production, Preview, and Development:
 
-### Option A: Start Both Concurrently (Recommended)
-You can launch both the frontend client and backend server simultaneously with a single command from the root directory:
+```env
+VITE_EMAILJS_SERVICE_ID
+VITE_EMAILJS_TEMPLATE_ID
+VITE_EMAILJS_PUBLIC_KEY
+VITE_CONTACT_TO_EMAIL
+```
+
+4. Set `VITE_CONTACT_TO_EMAIL` to `kprathamesh2001@gmail.com`.
+5. Redeploy the site after saving the variables.
+6. Test the live contact form with a real name, email, subject, and message.
+
+## Contact Form Behavior
+
+- Validates name, email, subject, and message.
+- Shows inline loading, success, and error states.
+- Uses `@emailjs/browser` directly from React.
+- Clears the form after a successful send.
+- Falls back to a direct-email message if EmailJS env vars are missing.
+
+## Build
 
 ```bash
-npm run dev
+npm run build --prefix client
 ```
-
-- **Frontend client** will run at: [http://localhost:5173](http://localhost:5173)
-- **Backend server** will run at: [http://localhost:5000](http://localhost:5000)
-
----
-
-### Option B: Start Frontend & Backend Separately
-
-#### 1. Start the Backend Server
-In a new terminal window, navigate to the `server/` directory and run:
-```bash
-cd server
-npm run dev
-```
-*Note: Nodemon is used to automatically restart the server when files change.*
-
-#### 2. Start the Frontend Client
-In another terminal window, navigate to the `client/` directory and run:
-```bash
-cd client
-npm run dev
-```
-
----
-
-## 📝 Features & Integrations
-
-- **Vite + React (JS)**: Powered by fast build tooling, glassmorphism CSS components, and Framer Motion micro-animations.
-- **Form Submission**: Submissions sent to `POST /api/contact` validate parameters using `express-validator`.
-- **Database Entry**: Successful submissions are saved to MongoDB as `Contact` documents.
-- **NodeMailer Integration**: If SMTP credentials are set up in `server/.env`, submissions will send an automated notification email containing the user's name, email, subject, and message.
