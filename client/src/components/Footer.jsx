@@ -1,12 +1,8 @@
 import { motion } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail, FiArrowUp } from 'react-icons/fi';
+import { FiArrowUp } from 'react-icons/fi';
 import { fadeInUp } from '../utils/animations';
-
-const socials = [
-  { icon: FiGithub, href: 'https://github.com/pk-062001', label: 'GitHub' },
-  { icon: FiLinkedin, href: 'https://linkedin.com/in/prathameshkokkula', label: 'LinkedIn' },
-  { icon: FiMail, href: 'mailto:kprathamesh2001@gmail.com', label: 'Email' },
-];
+import { socials } from '../data/socials';
+import { personalInfo } from '../constants/personalInfo';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -27,22 +23,25 @@ export default function Footer() {
         >
           <p className="text-sm text-text-secondary text-center">
             Designed &amp; Built by{' '}
-            <span className="text-text-primary font-medium">Prathamesh Kokkula</span>
+            <span className="text-text-primary font-medium">{personalInfo.name}</span>
           </p>
 
           <div className="flex items-center gap-4">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target={s.href.startsWith('http') ? '_blank' : undefined}
-                rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-text-secondary hover:text-primary hover:border-primary/30 hover:shadow-glow transition-all duration-300"
-                aria-label={s.label}
-              >
-                <s.icon size={18} />
-              </a>
-            ))}
+            {socials.map((social) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target={social.external ? '_blank' : undefined}
+                  rel={social.external ? 'noopener noreferrer' : undefined}
+                  className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-text-secondary hover:text-primary hover:border-primary/30 hover:shadow-glow transition-all duration-300"
+                  aria-label={social.label}
+                >
+                  <Icon size={18} />
+                </a>
+              );
+            })}
           </div>
 
           <p className="text-xs text-text-secondary/60">

@@ -1,15 +1,79 @@
 export const projects = [
   {
     id: 1,
-    title: 'Airbnb Clone',
-    category: 'Full Stack',
-    description:
-      'A full-stack Airbnb-inspired property rental platform built with the MERN stack. Features JWT authentication, property listings with image uploads, search and filter by location and price, booking management system, and host and guest dashboards - fully responsive UI.',
-    stack: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'REST APIs', 'Tailwind CSS'],
-    liveUrl: 'AIRBNB_LIVE_URL',
-    githubUrl: 'AIRBNB_GITHUB_URL',
+    title: 'AI Resume Screening System',
+    shortDescription: 'An AI-assisted recruiting assistant that helps teams evaluate candidates faster and more consistently.',
+    longDescription:
+      'This system combines a polished frontend experience with backend automation that supports resume intake, structured evaluation, and faster hiring decisions. It was designed to reduce friction in the screening workflow while keeping review logic explainable and production-friendly.',
+    techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'Python', 'LLM APIs', 'Docker'],
+    github: 'https://github.com/pk-062001',
+    live: 'https://example.com/ai-resume-screening',
+    image: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80',
+    category: 'AI',
     featured: true,
+    status: 'Production',
+    year: '2025',
+  },
+  {
+    id: 2,
+    title: 'Multi-Tenant HR Management System',
+    shortDescription: 'A scalable HR platform designed for organization-wide people operations and role-based workflows.',
+    longDescription:
+      'Built for distributed business workflows, this product supports tenant-aware data access, flexible role management, rich admin views, and operational reporting. It focuses on scalability for teams that need reliability without sacrificing usability.',
+    techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', 'REST APIs', 'Tailwind CSS'],
+    github: 'https://github.com/pk-062001',
+    live: 'https://example.com/hr-management',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80',
+    category: 'Full Stack',
+    featured: true,
+    status: 'Production',
+    year: '2024',
+  },
+  {
+    id: 3,
+    title: 'Real-Time Chat Application',
+    shortDescription: 'A responsive real-time messaging experience built with WebSockets and modern UI patterns.',
+    longDescription:
+      'This project focuses on quick, real-time collaboration with a smooth messaging experience, online presence, and robust API support. It highlights the sort of product thinking that matters when communication tools need to feel instant and dependable.',
+    techStack: ['React', 'Node.js', 'Socket.io', 'MongoDB', 'Tailwind CSS'],
+    github: 'https://github.com/pk-062001',
+    live: 'https://example.com/chat-app',
+    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80',
+    category: 'Backend',
+    featured: false,
+    status: 'Open Source',
+    year: '2024',
+  },
+  {
+    id: 4,
+    title: 'StayScape',
+    shortDescription: 'An Airbnb-inspired lodging platform with listings, booking, and guest-host flows.',
+    longDescription:
+      'StayScape captures the feel of a modern short-term rental marketplace with polished listing experiences, secure authentication, and a responsive booking journey. It demonstrates my approach to building consumer-facing products with maintainable architecture.',
+    techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', 'Cloudinary'],
+    github: 'https://github.com/pk-062001',
+    live: 'https://example.com/stayscape',
+    image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80',
+    category: 'Full Stack',
+    featured: false,
+    status: 'Case Study',
+    year: '2023',
+  },
+  {
+    id: 5,
+    title: 'Portfolio Website',
+    shortDescription: 'A modern developer portfolio with polished visuals, motion, and reusable content architecture.',
+    longDescription:
+      'This portfolio was rebuilt as a scalable, data-driven React experience. It now centers maintainability, performance, and accessibility while still feeling like a refined personal brand site.',
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion'],
+    github: 'https://github.com/pk-062001/portfolio',
+    live: 'https://example.com/portfolio',
+    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80',
+    category: 'Full Stack',
+    featured: false,
+    status: 'Live',
+    year: '2026',
   },
 ];
 
-export const projectCategories = ['All', 'Full Stack', 'Frontend', 'Backend'];
+export const projectCategories = ['All', 'Full Stack', 'AI', 'Backend'];

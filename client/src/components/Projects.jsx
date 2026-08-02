@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Tilt } from 'react-tilt';
-import { FiExternalLink, FiGithub } from 'react-icons/fi';
+import { FiExternalLink, FiGithub, FiArrowRight } from 'react-icons/fi';
 import { projects, projectCategories } from '../data/projects';
 import { fadeInUp } from '../utils/animations';
+import ProjectModal from './sections/ProjectModal';
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const filtered = activeCategory === 'All'
     ? projects
-    : projects.filter((p) => p.category === activeCategory);
+    : projects.filter((project) => project.category === activeCategory);
 
   return (
     <section id="projects" className="relative py-20 sm:py-28 overflow-hidden">
@@ -21,149 +22,107 @@ export default function Projects() {
       <div className="absolute inset-0 grain-texture pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.h2
-          className="text-3xl sm:text-4xl font-bold text-center mb-16"
+        <motion.div
+          className="max-w-3xl mx-auto text-center mb-12"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.1 }}
         >
-          Things I've{' '}
-          <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Built</span>
-        </motion.h2>
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary mb-3">Projects</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-text-primary">Selected work spanning full stack, AI, and product delivery</h2>
+        </motion.div>
 
         <motion.div
-          className="flex flex-wrap justify-center gap-2 mb-12"
+          className="flex flex-wrap justify-center gap-2 mb-10"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.1 }}
         >
-          {projectCategories.map((cat) => (
+          {projectCategories.map((category) => (
             <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-pill text-sm font-medium transition-all duration-300 ${
-                activeCategory === cat
-                  ? 'bg-gradient-to-r from-primary to-secondary text-white shadow-glow'
-                  : 'glass-pill text-text-secondary hover:text-text-primary'
+              key={category}
+              type="button"
+              onClick={() => setActiveCategory(category)}
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                activeCategory === category
+                  ? 'bg-gradient-to-r from-primary to-secondary text-white shadow-lg shadow-primary/20'
+                  : 'border border-white/10 bg-white/[0.04] text-text-secondary hover:text-text-primary'
               }`}
             >
-              {cat}
+              {category}
             </button>
           ))}
         </motion.div>
 
-        <motion.div
-          className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"
-          layout
-        >
+        <motion.div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto" layout>
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
-              <motion.div
+              <motion.article
                 key={project.id}
                 layout
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-                className={project.featured ? 'md:col-span-2' : ''}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.25 }}
+                className="group overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.04] backdrop-blur-xl"
               >
-                <Tilt
-                  options={{
-                    max: 8,
-                    scale: 1.02,
-                    speed: 400,
-                    glare: true,
-                    'max-glare': 0.05,
-                  }}
-                >
-                  <div
-                    className={`glass-card overflow-hidden group relative hover:border-primary/30 hover:shadow-glow transition-all duration-300 ${
-                      project.featured ? 'shadow-glow border-primary/20' : ''
-                    }`}
-                  >
-                    <div className="absolute inset-0 overflow-hidden rounded-card pointer-events-none">
-                      <div className="absolute inset-0 -translate-x-full group-hover:animate-shimmer bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-                    </div>
+                <div className="relative h-48 overflow-hidden">
+                  <img src={project.image} alt={project.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#05070b] via-black/20 to-transparent" />
+                  {project.featured && (
+                    <span className="absolute left-4 top-4 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+                      Featured
+                    </span>
+                  )}
+                  <span className="absolute right-4 top-4 rounded-full border border-white/10 bg-black/40 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">
+                    {project.status}
+                  </span>
+                </div>
 
-                    <div className="relative h-44 sm:h-52 bg-gradient-to-br from-primary/10 to-secondary/10 border-b border-white/[0.08]">
-                      <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/[0.08]">
-                        <div className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-green-400/60" />
-                      </div>
-                      <div className="flex items-center justify-center h-full">
-                        <span className="text-4xl font-bold bg-gradient-to-r from-primary/30 to-secondary/30 bg-clip-text text-transparent">
-                          {project.title.split(' ').map((w) => w[0]).join('')}
-                        </span>
-                      </div>
-                      {project.featured && (
-                        <div className="absolute top-10 right-4 glass-pill px-3 py-1 text-xs font-semibold text-primary">
-                          Featured
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="p-5 sm:p-6">
-                      <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-text-secondary leading-relaxed mb-4">
-                        {project.description}
-                      </p>
-
-                      <div className="flex flex-wrap gap-2 mb-5">
-                        {project.stack.map((tech) => (
-                          <span key={tech} className="glass-pill px-2.5 py-1 text-xs font-mono text-text-secondary">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="flex gap-3">
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                        >
-                          <FiExternalLink size={14} /> Live Demo
-                        </a>
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
-                        >
-                          <FiGithub size={14} /> GitHub
-                        </a>
-                      </div>
-                    </div>
+                <div className="p-6">
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <h3 className="text-xl font-semibold text-text-primary">{project.title}</h3>
+                    <span className="text-sm text-text-secondary">{project.year}</span>
                   </div>
-                </Tilt>
-              </motion.div>
+                  <p className="text-sm leading-7 text-text-secondary">{project.shortDescription}</p>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {project.techStack.slice(0, 4).map((tech) => (
+                      <span key={tech} className="rounded-full border border-white/10 px-3 py-1 text-xs text-text-secondary">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProject(project)}
+                      className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition hover:bg-primary/20"
+                    >
+                      Read more <FiArrowRight size={14} />
+                    </button>
+                    {project.github && (
+                      <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-text-secondary transition hover:text-primary">
+                        <FiGithub size={14} /> Code
+                      </a>
+                    )}
+                    {project.live && (
+                      <a href={project.live} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-text-secondary transition hover:text-primary">
+                        <FiExternalLink size={14} /> Demo
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.article>
             ))}
           </AnimatePresence>
         </motion.div>
-
-        <motion.div
-          className="text-center mt-12"
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.1 }}
-        >
-          <a
-            href="https://github.com/pk-062001"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="glass-button inline-flex items-center gap-2 px-6 py-3 font-medium"
-          >
-            View All on GitHub <FiExternalLink size={16} />
-          </a>
-        </motion.div>
       </div>
+
+      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
     </section>
   );
 }
