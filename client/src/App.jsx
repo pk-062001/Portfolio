@@ -6,6 +6,10 @@ import ScrollProgress from './components/ScrollProgress';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import SocialSidebar from './components/SocialSidebar';
+import BackToTop from './components/BackToTop';
+import WhatIBuild from './components/sections/WhatIBuild';
+import AchievementsSection from './components/sections/AchievementsSection';
+import LearningSection from './components/sections/LearningSection';
 
 const About = lazy(() => import('./components/About'));
 const Skills = lazy(() => import('./components/Skills'));
@@ -49,6 +53,7 @@ export default function App() {
         <Suspense fallback={<SectionLoader />}>
           <About />
         </Suspense>
+        <WhatIBuild />
         <Suspense fallback={<SectionLoader />}>
           <Skills />
         </Suspense>
@@ -58,6 +63,8 @@ export default function App() {
         <Suspense fallback={<SectionLoader />}>
           <Experience />
         </Suspense>
+        <AchievementsSection />
+        <LearningSection />
         <Suspense fallback={<SectionLoader />}>
           <Contact />
         </Suspense>
@@ -66,6 +73,7 @@ export default function App() {
       <Suspense fallback={<SectionLoader />}>
         <Footer />
       </Suspense>
+      <BackToTop />
     </div>
   );
 }
